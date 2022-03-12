@@ -110,3 +110,86 @@ const styles2 = StyleSheet.create({
 export default App;
 
 */
+
+import React, { useEffect, useState } from "react";
+import { FlatList, Text, View, Image, StyleSheet } from "react-native";
+
+const App = () => {
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  console.log(data["data"]);
+
+  useEffect(() => {
+    fetch("https://reqres.in/api/users")
+      .then((response) => response.json())
+      .then((json) => setData(json))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  }, []);
+
+  return (
+    <View style={{ flex: 1, padding: 24 }}>
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 30,
+              color: "green",
+              textAlign: "center",
+              fontWeight: "700",
+            }}
+          >
+            User List
+          </Text>
+
+          <FlatList
+            data={data["data"]}
+            keyExtractor={({ id }, index) => id}
+            renderItem={({ item }) => (
+              <View>
+                <Image
+                  style={styles.tinyLogo}
+                  source={{
+                    uri: item.avatar,
+                  }}
+                />
+                <Text style={{ fontWeight: "500" }}>
+                  {item.id + "."} Full Name: {item.first_name}
+                  {item.last_name}
+                </Text>
+                <Text style={{ fontWeight: "500" }}>Email: {item.email}</Text>
+              </View>
+            )}
+          />
+        </View>
+      )}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 50,
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+    borderRadius: "50%",
+    marginTop: 40,
+    marginBottom: 10,
+  },
+  logo: {
+    width: 66,
+    height: 58,
+  },
+});
+
+export default App;
