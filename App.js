@@ -149,12 +149,22 @@ const App = () => {
           >
             User List
           </Text>
+          <Text
+            style={{
+              fontSize: 20,
+              color: "gray",
+              textAlign: "center",
+              fontWeight: "700",
+            }}
+          >
+            Najmul Hossain, CSE1802014027
+          </Text>
 
           <FlatList
             data={data["data"]}
             keyExtractor={({ id }, index) => id}
             renderItem={({ item }) => (
-              <View>
+              <View style={{ margin: "auto" }}>
                 <Image
                   style={styles.tinyLogo}
                   source={{
