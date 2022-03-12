@@ -1,3 +1,7 @@
+// first ct
+/*
+
+
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -104,3 +108,5 @@ const styles2 = StyleSheet.create({
 });
 
 export default App;
+
+*/
